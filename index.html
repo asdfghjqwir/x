@@ -17,61 +17,69 @@
         body { background-color: var(--bg-color); font-family: 'M PLUS Rounded 1c', sans-serif; margin: 0; padding: 20px 0; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
 
         #app { 
-            width: 92%; max-width: 420px; background: var(--card-white); border: 5px solid var(--black); 
-            border-radius: 25px; box-shadow: 10px 10px 0px var(--black); 
-            padding: 25px; text-align: center; box-sizing: border-box; margin: auto;
+            width: 92%; max-width: 380px; background: var(--card-white); border: 4px solid var(--black); 
+            border-radius: 24px; box-shadow: 8px 8px 0px var(--black); 
+            padding: 30px 20px; text-align: center; box-sizing: border-box; margin: auto;
         }
+
+        h1 { font-size: 1.4rem; margin-bottom: 25px; line-height: 1.3; }
+        h1 span { font-size: 1.2rem; display: block; margin-bottom: 5px; }
 
         #quiz, #loading, #result { display: none; }
         #quiz { display: block; }
 
-        .input-group { text-align: left; margin-bottom: 15px; }
-        label { font-size: 0.85rem; font-weight: 900; }
+        .input-group { text-align: left; margin-bottom: 18px; }
+        label { font-size: 0.75rem; font-weight: 900; color: #666; margin-left: 5px; }
         input { 
-            width: 100%; padding: 12px; border: 4px solid var(--black); border-radius: 12px;
-            box-shadow: 4px 4px 0px var(--black); margin-top: 5px; box-sizing: border-box; 
-            font-size: 1.1rem; font-weight: 900; outline: none;
+            width: 100%; padding: 12px; border: 3px solid var(--black); border-radius: 12px;
+            box-shadow: 3px 3px 0px var(--black); margin-top: 6px; box-sizing: border-box; 
+            font-size: 1rem; font-weight: 900; outline: none;
         }
 
-        .rank-label { font-size: 1rem; font-weight: 900; background: var(--black); color: white; padding: 4px 12px; border-radius: 8px; display: inline-block; }
+        .rank-label { font-size: 0.8rem; font-weight: 900; background: var(--black); color: white; padding: 3px 10px; border-radius: 6px; display: inline-block; }
         #result-rank { 
-            font-size: 2.8rem; font-weight: 900; margin: 10px 0; line-height: 1.1;
-            text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 4px 4px 0px var(--black);
+            font-size: 2.2rem; font-weight: 900; margin: 12px 0; line-height: 1.1;
+            text-shadow: 1px 1px 0 #fff, 3px 3px 0px var(--black);
         }
 
-        .loss-container { margin: 20px 0; padding: 15px; border: 3px dashed var(--black); border-radius: 15px; background: #fff9e6; }
-        .loss-title { font-size: 0.8rem; font-weight: 900; color: #555; }
-        .total-loss { font-size: 1.8rem; font-weight: 900; color: #ff0000; margin: 5px 0; }
-        .hourly-value { font-size: 1rem; font-weight: 900; color: var(--black); }
+        .loss-container { margin: 20px 0; padding: 15px; border: 2px dashed var(--black); border-radius: 16px; background: #fffdf5; }
+        .loss-title { font-size: 0.75rem; font-weight: 900; color: #777; }
+        .total-loss { font-size: 1.6rem; font-weight: 900; color: #ff0000; margin: 4px 0; }
+        
+        .example-box { 
+            font-size: 0.85rem; font-weight: 900; color: var(--accent-pink); 
+            margin-top: 8px; border-top: 1px solid #eee; padding-top: 8px; 
+            line-height: 1.5; word-break: keep-all; overflow-wrap: anywhere;
+        }
 
         .roast-card { 
-            background: #F0F0F0; border: 4px solid var(--black); border-radius: 15px;
-            padding: 15px; margin: 15px 0; text-align: left; font-weight: 800; font-size: 0.9rem; line-height: 1.5;
+            background: #f8f8f8; border: 3px solid var(--black); border-radius: 16px;
+            padding: 18px 15px; margin: 15px 0; text-align: center; font-weight: 800; font-size: 0.85rem; line-height: 1.6;
         }
 
         .timer-box { 
-            background: var(--black); color: #00FF41; padding: 12px; border-radius: 12px;
-            font-family: monospace; margin-top: 10px;
+            background: var(--black); color: #00FF41; padding: 10px; border-radius: 10px;
+            font-family: monospace; margin-top: 12px;
         }
-        .live-amount { font-size: 2rem; color: #FF4D4D; font-weight: 900; }
+        .live-amount { font-size: 1.5rem; color: #FF4D4D; font-weight: 900; }
 
         button, .physics-button { 
-            width: 100%; padding: 15px; border: 4px solid var(--black); border-radius: 50px;
-            font-weight: 900; font-size: 1.1rem; cursor: pointer; transition: 0.1s;
-            box-shadow: 0 5px 0px var(--black); text-decoration: none; display: block; box-sizing: border-box;
+            width: 100%; padding: 14px; border: 3px solid var(--black); border-radius: 50px;
+            font-weight: 900; font-size: 1rem; cursor: pointer; transition: 0.1s;
+            box-shadow: 0 4px 0px var(--black); text-decoration: none; display: block; box-sizing: border-box;
         }
-        button:active { transform: translateY(3px); box-shadow: 0 2px 0px var(--black); }
+        button:active { transform: translateY(2px); box-shadow: 0 2px 0px var(--black); }
 
-        .btn-main { background: var(--yellow); color: var(--black); margin-top: 10px; }
-        .share-btn { background: #1DA1F2; color: white; margin-top: 15px; }
-        .physics-button { background: var(--accent-pink); color: white !important; margin-top: 20px; line-height: 1.2; }
+        .btn-main { background: var(--yellow); color: var(--black); margin-top: 5px; }
+        .share-btn { background: #1DA1F2; color: white; margin-top: 12px; }
+        .physics-button { background: var(--accent-pink); color: white !important; margin-top: 18px; line-height: 1.1; }
     </style>
 </head>
 <body>
 
 <div id="app">
     <div id="quiz">
-        <h1>📱 SNS依存度<br>人生損失診断</h1>
+        <h1><span>📱</span>SNS依存度<br>人生損失診断</h1>
         <div class="input-group">
             <label>1日のSNS利用時間 (時間)</label>
             <input type="number" id="snsTime" inputmode="decimal" placeholder="例: 5">
@@ -84,52 +92,55 @@
     </div>
 
     <div id="loading">
-        <h2 style="font-size: 2.5rem;">🌀</h2>
-        <h2>解析中...</h2>
-        <p>嘘を暴いています...</p>
+        <h2 style="font-size: 1.8rem;">🌀</h2>
+        <h2 style="font-size: 1.2rem;">解析中...</h2>
+        <p style="font-size: 0.8rem;">嘘を暴いています...</p>
     </div>
 
     <div id="result">
-        <span class="rank-label">判定：</span>
+        <span class="rank-label">判定</span>
         <h1 id="result-rank">判定中</h1>
 
         <div class="loss-container">
-            <div class="loss-title">あなたがSNSに献上した人生の価値：</div>
+            <div class="loss-title">SNSの闇に溶けた総額：</div>
             <div class="total-loss" id="totalLossDisplay">¥0</div>
-            <div class="loss-title">現在のあなたの時給換算：</div>
-            <div class="hourly-value" id="hourlyDisplay">¥0 (実質価値)</div>
+            <div class="example-box" id="comparisonText"></div>
         </div>
         
         <div class="roast-card">
-            <p id="roast-text"></p>
+            <p id="roast-text" style="margin:0;"></p>
             <div class="timer-box">
-                <p style="margin:0; font-size:0.7rem; color: #aaa;">診断中も溶け続ける人生：</p>
+                <p style="margin:0 0 5px 0; font-size:0.65rem; color: #aaa; letter-spacing: 0.05em;">SNS神へのお布施</p>
                 <div class="live-amount">¥<span id="ticker">0.00</span></div>
             </div>
         </div>
         
         <button class="share-btn" onclick="shareX()">🐦 Xで恥を晒す</button>
-        <a href="https://buy.stripe.com/あなたのリンク" class="physics-button">⚠️ 救済措置を受け取る (¥100)<br><small style="font-size: 0.7rem; font-weight: normal;">※運営者にコーヒーを奢る</small></a>
+        
+        <a href="https://buy.stripe.com/あなたのリンク" class="physics-button">
+            <span style="font-size: 1.1rem; display: block; margin-bottom: 2px;">⚠️ 救済措置を受け取る (¥100)</span>
+            <small style="font-size: 0.65rem; font-weight: normal; opacity: 0.8; display: block;">※運営者にコーヒーを奢る</small>
+        </a>
     </div>
 </div>
 
 <script>
     const roasts = [
-        "「いいね」を稼いでも、あなたの銀行残高は増えません。通知ドパミンに脳を焼かれた、ただの無料マシーンです。",
-        "情報の海を泳いでいるつもりですか？実際はアルゴリズムという網に掛かった動けない魚ですよ。",
-        "スクロールする指の動きだけは一流。その指で生産していれば、今頃あなたは「売る側」にいたはずなのに。",
-        "あなたが『無料』でSNSを楽しんでいる時、支払っている対価は『人生の時間』そのものです。",
-        "画面の向こう側の成功者を見て満足ですか？彼らはあなたのような『観客』がいるおかげで稼いでいます。",
-        "スマホのバッテリー残量には敏感なのに、自分の人生の残り時間には無頓着。優先順位、バグってませんか？",
-        "SNSを開くたびに、あなたの脳の一部が広告最適化のために切り売りされています。人間をやめてデータになりたいんですか？",
-        "他人のランチの写真を見て、何が手に入りましたか？手元に残ったのは、虚無感と熱くなったスマホだけです。",
-        "1日の4分の1を画面に捧げる。それは人生の4分の1を『なかったこと』にするのと同じです。",
-        "死ぬ間際、あなたは『もっとSNSを見ておけばよかった』と後悔するんでしょうか。そんなわけないですよね。",
-        "アルゴリズムはあなたを理解していますが、あなたは自分を理解していません。飼い慣らされた自覚はありますか？",
-        "最新トレンドを追っているつもりで、実は古いアルゴリズムのレールの上。あなたの思考、賞味期限切れですよ？",
-        "デジタルな世界でどれだけ着飾っても、現実のあなたはスマホの光に照らされた、ただの寂しい消費者です。",
-        "情報のインプット過多で、脳がデブになっています。たまにはアウトプットという名の生産をしたらどうですか？",
-        "あなたが画面を閉じられないのは意志が弱いからではありません。数千人の天才エンジニアがあなたを依存させるために設計した罠に、まんまとハマっているだけです。"
+        "「いいね」で心は満たせても、<br>銀行残高は1円も増えません。",
+        "スクロールする指だけは一流。<br>中身はアルゴリズムの養分。",
+        "スマホの充電には敏感なのに、<br>人生の残り時間には無頓着ですね。",
+        "あなたが無料で楽しむほど、<br>支払っているのは「自分の人生」です。",
+        "画面の向こうの成功者は、<br>あなたの「時間」を食べて稼いでます。",
+        "情報の海を泳いでいるつもり？<br>網に掛かった動けない魚ですよ。",
+        "その1秒のスクロールが、<br>誰かの広告収益に変わりました。",
+        "1日の4分の1を画面に捧げる。<br>人生の25%を「無」にする勇気。",
+        "通知ド-パミンに脳を焼かれた、<br>ただの無料クリックマシーン。",
+        "死ぬ間際に「もっとSNSを<br>見ておけば…」なんて言いませんよね。",
+        "アルゴリズムに飼い慣らされた<br>自覚、ありますか？",
+        "最新トレンドを追うほど、<br>あなたの思考は賞味期限切れに。",
+        "現実のあなたは、スマホの光に<br>照らされただけの「寂しい消費者」。",
+        "脳がインプット過多でデブ。<br>たまには何か生産したらどうです？",
+        "数千人の天才が作った「依存の罠」。<br>今日も元気にハマってますね。"
     ];
 
     let globalRank = "";
@@ -160,8 +171,18 @@
             lossPerSecond = (hourly / 3600) * (snsTime / 2); 
             
             document.getElementById('totalLossDisplay').innerText = `¥${Math.floor(totalLifetimeLoss).toLocaleString()}`;
-            document.getElementById('hourlyDisplay').innerText = `¥${Math.floor(hourly).toLocaleString()} (実質価値)`;
             
+            let compare = "";
+            if (totalLifetimeLoss >= 400000000) compare = "「一生ウーバーイーツ生活」の夢、本日終了。";
+            else if (totalLifetimeLoss >= 200000000) compare = "港区のタワマン、キャッシュで買えたはずの人生。";
+            else if (totalLifetimeLoss >= 100000000) compare = "叙々苑の特選カルビ、死ぬまで毎食食べられた金額。";
+            else if (totalLifetimeLoss >= 50000000) compare = "今すぐ辞表を叩きつけ、南の島で数年昼寝できる富。";
+            else if (totalLifetimeLoss >= 20000000) compare = "推しの全公演を「最前列」で鑑賞し続ける特権。";
+            else if (totalLifetimeLoss >= 5000000) compare = "コンビニで「一生爆買い」できたはずの富。";
+            else compare = "最新iPhoneを10回バキバキに割っても余裕でした。";
+            
+            document.getElementById('comparisonText').innerText = compare;
+
             let color = "";
             if (snsTime >= 10) { globalRank = "末期デジタル廃人"; color = "#ff0000"; }
             else if (snsTime >= 7) { globalRank = "アルゴリズムの奴隷"; color = "#FF007F"; }
@@ -173,7 +194,7 @@
             rankElement.innerText = globalRank;
             rankElement.style.color = color;
 
-            document.getElementById('roast-text').innerText = roasts[Math.floor(Math.random() * roasts.length)];
+            document.getElementById('roast-text').innerHTML = roasts[Math.floor(Math.random() * roasts.length)];
             
             startTime = Date.now();
             updateTicker();
@@ -187,9 +208,10 @@
     }
 
     function shareX() {
-        const rankText = `【診断結果：${globalRank}】`;
+        const rankText = `【判定：${globalRank}】`;
         const lossText = document.getElementById('totalLossDisplay').innerText;
-        const text = encodeURIComponent(`${rankText}\n私がSNSに献上した人生の価値は「${lossText}」でした…。\n今この瞬間も、秒単位で溶け続けています。\n\n#SNS依存診断 #デジタル家畜`);
+        const compareText = document.getElementById('comparisonText').innerText;
+        const text = encodeURIComponent(`${rankText}\n私がSNSの闇に溶かした総額は「${lossText}」でした…。\n${compareText}\n\n#SNS依存診断 #デジタル家畜`);
         const url = encodeURIComponent(window.location.href);
         const xUrl = `https://x.com/intent/post?text=${text}&url=${url}`;
         window.open(xUrl, '_blank', 'noopener,noreferrer');
