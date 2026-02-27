@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNS依存・人生損失診断</title>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --yellow: #FFD700; --pink: #FF007F; --black: #000000; --white: #ffffff; }
+        body { background-color: var(--yellow); font-family: 'M PLUS Rounded 1c', sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        #app { width: 90%; max-width: 400px; background: var(--white); border: 4px solid var(--black); box-shadow: 8px 8px 0px var(--black); padding: 25px; text-align: center; box-sizing: border-box; }
+        
+        /* 診断結果の文字を劇的に見やすく */
+        #result-rank { 
+            font-size: 2.5rem; /* 巨大化 */
+            font-weight: 900; 
+            line-height: 1.2;
+            margin: 10px 0;
+            padding: 10px;
+            /* 白い縁取りをつけて文字を浮かび上がらせる */
+            text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .rank-label { font-size: 1rem; color: var(--black); display: block; margin-bottom: 5px; }
+
+        .input-group { text-align: left; margin-bottom: 15px; }
+        label { font-size: 0.8rem; font-weight: bold; }
+        input { width: 100%; padding: 12px; border: 3px solid var(--black); box-shadow: 4px 4px 0px var(--black); margin-top: 5px; box-sizing: border-box; font-size: 1.1rem; }
+        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        button { width: 100%; padding: 15px; background: var(--pink); color: white; font-weight: 900; border: 3px solid var(--black); box-shadow: 4px 4px 0px var(--black); cursor: pointer; margin-top: 10px; }
+        #loading, #result { display: none; }
+        .roast-card { background: #f9f9f9; border: 3px solid var(--black); padding: 15px; margin-top: 20px; text-align: left; }
+        .timer-box { background: var(--black); color: #00ff00; padding: 15px; margin-top: 15px; font-family: monospace; border-radius: 4px; }
+        .live-amount { font-size: 2.2rem; color: #ff0000; font-weight: 900; }
+        .physics-button { display: inline-block; width: 100%; background: linear-gradient(135deg, #FF4B2B 0%, #FF416C 100%); color: white !important; text-decoration: none !important; margin-top: 25px; padding: 20px; border-radius: 8px; font-weight: 900; border: 2px solid var(--black); box-shadow: 0 4px 0 var(--black); box-sizing: border-box; }
+        .share-btn { background: #1DA1F2 !important; margin-top: 15px !important; }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="quiz">
+        <h1>📱 SNS依存 × 人生損失</h1>
+        <div class="input-group">
+            <label>1日のSNS利用時間 (時間)</label>
+            <input type="number" id="snsTime" inputmode="decimal" placeholder="例: 5">
+        </div>
+        <div class="input-group">
+            <label>あなたの月収 (万円)</label>
+            <input type="number" id="income" inputmode="numeric" placeholder="例: 30">
+        </div>
+        <button onclick="diagnose()">深層心理を解析する</button>
+    </div>
+
+    <div id="loading"><h2>解析中...</h2><p>あなたの「失われた未来」を計算中</p></div>
+
+    <div id="result">
+        <span class="rank-label">診断結果：</span>
+        <h1 id="result-rank">---</h1>
+        
+        <div class="roast-card">
+            <p id="roast-text"></p>
+            <div class="timer-box">
+                <p style="margin:0; font-size:0.7rem; color: #aaa;">診断開始からドブに捨て続けている価値：</p>
+                <div class="live-amount">¥<span id="ticker">0.00</span></div>
+            </div>
+        </div>
+        
+        <button class="share-btn" onclick="shareX()">Xで恥を晒す</button>
+
+        <a href="https://buy.stripe.com/あなたのリンク" class="physics-button">
+            ⚠️ 救済措置を受け取る (¥100)<br>
+            <span style="font-size: 0.7rem; font-weight: normal;">※運営者にコーヒーを一杯奢る</span>
+        </a>
+    </div>
+</div>
+
+<script>
+    const roasts = [
+        "「いいね」を稼いでも、あなたの銀行残高は1円も増えていません。通知ドパミンに脳を焼かれた、ただの無料マシーンです。",
+        "情報の海を泳いでいるつもりですか？実際はアルゴリズムという網に掛かった動けない魚ですよ。",
+        "スクロールする指の動きだけは一流。その指で生産していれば、今頃あなたは「売る側」にいたはずなのに。",
+        "あなたが『無料』でSNSを楽しんでいる時、支払っている対価は『人生の時間』そのものです。",
+        "画面の向こう側の成功者を見て満足ですか？彼らはあなたのような『観客』がいるおかげで稼いでいます。",
+        "最新トレンドを追っているつもりで、実は古いアルゴリズムのレールの上。あなたの思考、賞味期限切れですよ？",
+        "スマホのバッテリー残量には敏感なのに、自分の人生の残り時間には無論着。優先順位、バグってませんか？",
+        "その『暇つぶし』、実は人生そのものを潰していることにいつ気付くんでしょうか。",
+        "SNSを開くたびに、あなたの脳の一部が広告最適化のために切り売りされています。",
+        "他人のランチの写真を見て、何が手に入りましたか？手元に残ったのは、虚無感と熱くなったスマホだけです。",
+        "1日の4分の1を画面に捧げる。それは人生の4分の1を『なかったこと』にするのと同じです。",
+        "あなたがスクロールを止めるタイミングさえAIに計算されています。操り人形の自覚はありますか？",
+        "デジタルな世界でどれだけ着飾っても、現実のあなたはスマホの光に照らされた、ただの寂しい消費者です。",
+        "情報のインプット過多で、脳がデブになっていますよ。たまにはアウトプットという名の生産をしたらどうですか？",
+        "死ぬ間際、あなたは『もっとSNSを見ておけばよかった』と後悔するんでしょうか。そんなわけないですよね。"
+    ];
+
+    let globalRank = "";
+    let startTime;
+    let lossPerSecond = 0;
+
+    function diagnose() {
+        const sVal = document.getElementById('snsTime').value;
+        const iVal = document.getElementById('income').value;
+
+        if (sVal === "" || iVal === "") { 
+            alert('数値を入力してください。現実から逃げないで。'); 
+            return; 
+        }
+
+        const snsTime = parseFloat(sVal);
+        const income = parseFloat(iVal);
+
+        if (isNaN(snsTime) || isNaN(income)) {
+            alert('有効な数値を入力してください。');
+            return;
+        }
+
+        document.getElementById('quiz').style.display = 'none';
+        document.getElementById('loading').style.display = 'block';
+
+        setTimeout(() => {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+
+            const hourly = (income * 10000) / 160;
+            lossPerSecond = (hourly / 3600) * (snsTime / 2); 
+            
+            let color = "";
+            if (snsTime >= 10) { globalRank = "末期デジタル廃人"; color = "#ff0000"; }
+            else if (snsTime >= 7) { globalRank = "アルゴリズムの奴隷"; color = "#FF007F"; }
+            else if (snsTime >= 4) { globalRank = "標準的デジタル家畜"; color = "#000000"; }
+            else if (snsTime >= 2) { globalRank = "無自覚な養分"; color = "#333333"; }
+            else { globalRank = "自律した人間"; color = "#DAA520"; }
+            
+            const rankElement = document.getElementById('result-rank');
+            rankElement.innerText = globalRank; // ランク名だけを表示
+            rankElement.style.color = color;
+            document.getElementById('roast-text').innerText = roasts[Math.floor(Math.random() * roasts.length)];
+            
+            startTime = Date.now();
+            updateTicker();
+        }, 2000);
+    }
+
+    function updateTicker() {
+        const elapsed = (Date.now() - startTime) / 1000;
+        document.getElementById('ticker').innerText = (elapsed * lossPerSecond).toFixed(2);
+        requestAnimationFrame(updateTicker);
+    }
+
+    function shareX() {
+        const rankText = `診断結果：${globalRank}`;
+        const text = encodeURIComponent(`【SNS依存・時給換算診断】\n結果は「${rankText}」でした。\nSNSにドブに捨てた人生の価値は、驚愕の金額…。\n\n#SNS依存診断 #デジタル家畜`);
+        const url = encodeURIComponent(window.location.href);
+        const xUrl = `https://x.com/intent/post?text=${text}&url=${url}`;
+        window.open(xUrl, '_blank', 'noopener,noreferrer');
+    }
+</script>
+</body>
+</html>
