@@ -6,70 +6,28 @@
     <title>SNS依存・人生損失診断</title>
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@800;900&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --bg-color: #00F5FF; 
-            --accent-pink: #FF007F; 
-            --card-white: #ffffff;
-            --black: #1A1A1A;
-            --yellow: #FFD700;
-        }
-        
+        :root { --bg-color: #00F5FF; --accent-pink: #FF007F; --card-white: #ffffff; --black: #1A1A1A; --yellow: #FFD700; }
         body { background-color: var(--bg-color); font-family: 'M PLUS Rounded 1c', sans-serif; margin: 0; padding: 20px 0; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
-
-        #app { 
-            width: 92%; max-width: 380px; background: var(--card-white); border: 4px solid var(--black); 
-            border-radius: 24px; box-shadow: 8px 8px 0px var(--black); 
-            padding: 30px 20px; text-align: center; box-sizing: border-box; margin: auto;
-        }
-
+        #app { width: 92%; max-width: 380px; background: var(--card-white); border: 4px solid var(--black); border-radius: 24px; box-shadow: 8px 8px 0px var(--black); padding: 30px 20px; text-align: center; box-sizing: border-box; margin: auto; }
         h1 { font-size: 1.4rem; margin-bottom: 25px; line-height: 1.3; }
-        h1 span { font-size: 1.2rem; display: block; margin-bottom: 5px; }
-
+        h1 span { font-size: 1.5rem; display: block; margin-bottom: 5px; }
         #quiz, #loading, #result { display: none; }
         #quiz { display: block; }
-
         .input-group { text-align: left; margin-bottom: 18px; }
         label { font-size: 0.75rem; font-weight: 900; color: #666; margin-left: 5px; }
-        input { 
-            width: 100%; padding: 12px; border: 3px solid var(--black); border-radius: 12px;
-            box-shadow: 3px 3px 0px var(--black); margin-top: 6px; box-sizing: border-box; 
-            font-size: 1rem; font-weight: 900; outline: none;
-        }
-
+        input { width: 100%; padding: 12px; border: 3px solid var(--black); border-radius: 12px; box-shadow: 3px 3px 0px var(--black); margin-top: 6px; box-sizing: border-box; font-size: 1rem; font-weight: 900; outline: none; }
         .rank-label { font-size: 0.8rem; font-weight: 900; background: var(--black); color: white; padding: 3px 10px; border-radius: 6px; display: inline-block; }
-        #result-rank { 
-            font-size: 2.2rem; font-weight: 900; margin: 12px 0; line-height: 1.1;
-            text-shadow: 1px 1px 0 #fff, 3px 3px 0px var(--black);
-        }
-
+        #result-rank { font-size: 2.1rem; font-weight: 900; margin: 12px 0; line-height: 1.1; text-shadow: 1px 1px 0 #fff, 3px 3px 0px var(--black); }
         .loss-container { margin: 20px 0; padding: 15px; border: 2px dashed var(--black); border-radius: 16px; background: #fffdf5; }
-        .loss-title { font-size: 0.75rem; font-weight: 900; color: #777; }
-        .total-loss { font-size: 1.6rem; font-weight: 900; color: #ff0000; margin: 4px 0; }
-        
-        .example-box { 
-            font-size: 0.85rem; font-weight: 900; color: var(--accent-pink); 
-            margin-top: 8px; border-top: 1px solid #eee; padding-top: 8px; 
-            line-height: 1.5; word-break: keep-all; overflow-wrap: anywhere;
-        }
-
-        .roast-card { 
-            background: #f8f8f8; border: 3px solid var(--black); border-radius: 16px;
-            padding: 18px 15px; margin: 15px 0; text-align: center; font-weight: 800; font-size: 0.85rem; line-height: 1.6;
-        }
-
-        .timer-box { 
-            background: var(--black); color: #00FF41; padding: 10px; border-radius: 10px;
-            font-family: monospace; margin-top: 12px;
-        }
+        .loss-title { font-size: 0.75rem; font-weight: 900; color: #777; margin-bottom: 5px; }
+        .total-loss { font-size: 1.8rem; font-weight: 900; color: #ff0000; margin: 4px 0; }
+        .logic-hint { font-size: 0.6rem; color: #999; margin-bottom: 12px; font-weight: 800; letter-spacing: 0.05em; }
+        .example-box { font-size: 0.85rem; font-weight: 900; color: var(--accent-pink); border-top: 1px solid #eee; padding-top: 10px; line-height: 1.5; }
+        .roast-card { background: #f8f8f8; border: 3px solid var(--black); border-radius: 16px; padding: 18px 15px; margin: 15px 0; font-weight: 800; font-size: 0.85rem; line-height: 1.6; }
+        .timer-box { background: var(--black); color: #00FF41; padding: 10px; border-radius: 10px; font-family: monospace; margin-top: 12px; }
         .live-amount { font-size: 1.5rem; color: #FF4D4D; font-weight: 900; }
-
-        button, .physics-button { 
-            width: 100%; padding: 14px; border: 3px solid var(--black); border-radius: 50px;
-            font-weight: 900; font-size: 1rem; cursor: pointer; transition: 0.1s;
-            box-shadow: 0 4px 0px var(--black); text-decoration: none; display: block; box-sizing: border-box;
-        }
+        button, .physics-button { width: 100%; padding: 14px; border: 3px solid var(--black); border-radius: 50px; font-weight: 900; font-size: 1rem; cursor: pointer; transition: 0.1s; box-shadow: 0 4px 0px var(--black); text-decoration: none; display: block; box-sizing: border-box; }
         button:active { transform: translateY(2px); box-shadow: 0 2px 0px var(--black); }
-
         .btn-main { background: var(--yellow); color: var(--black); margin-top: 5px; }
         .share-btn { background: #1DA1F2; color: white; margin-top: 12px; }
         .physics-button { background: var(--accent-pink); color: white !important; margin-top: 18px; line-height: 1.1; }
@@ -92,32 +50,31 @@
     </div>
 
     <div id="loading">
-        <h2 style="font-size: 1.8rem;">🌀</h2>
-        <h2 style="font-size: 1.2rem;">解析中...</h2>
-        <p style="font-size: 0.8rem;">嘘を暴いています...</p>
+        <h2 style="font-size: 2.5rem;">💸</h2>
+        <h2 style="font-size: 1.2rem;">あなたの人生を<br>「虚無」に変換中...</h2>
     </div>
 
     <div id="result">
-        <span class="rank-label">判定</span>
+        <span class="rank-label">判定結果</span>
         <h1 id="result-rank">判定中</h1>
 
         <div class="loss-container">
-            <div class="loss-title">SNSの闇に溶けた総額：</div>
+            <div class="loss-title">SNSに一生搾取される労働価値：</div>
             <div class="total-loss" id="totalLossDisplay">¥0</div>
+            <div class="logic-hint">※月収から算出した「定年まで40年分」の試算</div>
             <div class="example-box" id="comparisonText"></div>
         </div>
         
         <div class="roast-card">
             <p id="roast-text" style="margin:0;"></p>
             <div class="timer-box">
-                <p style="margin:0 0 5px 0; font-size:0.65rem; color: #aaa; letter-spacing: 0.05em;">SNS神へのお布施</p>
+                <p style="margin:0 0 5px 0; font-size:0.65rem; color: #aaa; letter-spacing: 0.1em; font-weight: 900;">現在進行形のお布施：</p>
                 <div class="live-amount">¥<span id="ticker">0.00</span></div>
             </div>
         </div>
         
         <button class="share-btn" onclick="shareX()">🐦 Xで恥を晒す</button>
-        
-        <a href="https://buy.stripe.com/あなたのリンク" class="physics-button">
+        <a href="https://buy.stripe.com/YOUR_LINK" class="physics-button">
             <span style="font-size: 1.1rem; display: block; margin-bottom: 2px;">⚠️ 救済措置を受け取る (¥100)</span>
             <small style="font-size: 0.65rem; font-weight: normal; opacity: 0.8; display: block;">※運営者にコーヒーを奢る</small>
         </a>
@@ -125,37 +82,32 @@
 </div>
 
 <script>
+    // 15個の厳選毒舌リスト
     const roasts = [
-        "「いいね」で心は満たせても、<br>銀行残高は1円も増えません。",
-        "スクロールする指だけは一流。<br>中身はアルゴリズムの養分。",
-        "スマホの充電には敏感なのに、<br>人生の残り時間には無頓着ですね。",
-        "あなたが無料で楽しむほど、<br>支払っているのは「自分の人生」です。",
-        "画面の向こうの成功者は、<br>あなたの「時間」を食べて稼いでます。",
-        "情報の海を泳いでいるつもり？<br>網に掛かった動けない魚ですよ。",
-        "その1秒のスクロールが、<br>誰かの広告収益に変わりました。",
-        "1日の4分の1を画面に捧げる。<br>人生の25%を「無」にする勇気。",
-        "通知ド-パミンに脳を焼かれた、<br>ただの無料クリックマシーン。",
-        "死ぬ間際に「もっとSNSを<br>見ておけば…」なんて言いませんよね。",
-        "アルゴリズムに飼い慣らされた<br>自覚、ありますか？",
-        "最新トレンドを追うほど、<br>あなたの思考は賞味期限切れに。",
-        "現実のあなたは、スマホの光に<br>照らされただけの「寂しい消費者」。",
-        "脳がインプット過多でデブ。<br>たまには何か生産したらどうです？",
-        "数千人の天才が作った「依存の罠」。<br>今日も元気にハマってますね。"
+        "「いいね」で心は満たせても、銀行残高は1円も増えませんよ？",
+        "スクロールする指だけは一流。中身はアルゴリズムの養分です。",
+        "スマホの充電には敏感なのに、自分の人生の残り時間には無頓着ですね。",
+        "あなたが無料で楽しむほど、支払っているのは「自分の人生」という対価です。",
+        "画面の向こうの成功者は、あなたの「時間」を食べて稼いでます。",
+        "情報の海を泳いでいるつもり？網に掛かった動けない魚ですよ。",
+        "その1秒のスクロールが、今日も誰かの広告収益に変わりました。合掌。",
+        "1日の4分の1を画面に捧げる。人生の25%を「無」にする勇気だけは認めます。",
+        "通知ドパミンに脳を焼かれた、ただの無料クリックマシーン。",
+        "死ぬ間際に「もっとSNSを見ておけば…」なんて絶対言いませんよね？",
+        "アルゴリズムに飼い慣らされた自覚、ありますか？",
+        "最新トレンドを追うほど、あなたの思考は賞味期限切れになっていきます。",
+        "現実のあなたは、スマホの光に照らされただけの「寂しい消費者」です。",
+        "脳がインプット過多でデブ。たまには何か一つでも生産したらどうです？",
+        "数千人の天才が作った「依存の罠」。今日もいいカモですね。"
     ];
 
-    let globalRank = "";
-    let startTime;
-    let lossPerSecond = 0;
+    let globalRank = "", startTime, lossPerSecond = 0;
 
     function diagnose() {
         const sVal = document.getElementById('snsTime').value;
         const iVal = document.getElementById('income').value;
-
-        if (sVal === "" || iVal === "") { 
-            alert('数値を入力してください。現実から逃げないで。'); 
-            return; 
-        }
-
+        if (sVal === "" || iVal === "") { alert('数値を入力してください。'); return; }
+        
         const snsTime = parseFloat(sVal);
         const income = parseFloat(iVal);
 
@@ -166,35 +118,40 @@
             document.getElementById('loading').style.display = 'none';
             document.getElementById('result').style.display = 'block';
 
-            const hourly = (income * 10000) / 160; 
-            const totalLifetimeLoss = hourly * snsTime * 365 * 40; 
-            lossPerSecond = (hourly / 3600) * (snsTime / 2); 
-            
+            const hourly = (income * 10000) / 160;
+            const totalLifetimeLoss = hourly * snsTime * 365 * 40;
+            const totalYears = ((snsTime * 365 * 40) / 24 / 365).toFixed(1);
+            lossPerSecond = (hourly / 3600) * (snsTime / 2);
+
             document.getElementById('totalLossDisplay').innerText = `¥${Math.floor(totalLifetimeLoss).toLocaleString()}`;
             
+            // 比較テキストの生成
             let compare = "";
-            if (totalLifetimeLoss >= 400000000) compare = "「一生ウーバーイーツ生活」の夢、本日終了。";
-            else if (totalLifetimeLoss >= 200000000) compare = "港区のタワマン、キャッシュで買えたはずの人生。";
-            else if (totalLifetimeLoss >= 100000000) compare = "叙々苑の特選カルビ、死ぬまで毎食食べられた金額。";
-            else if (totalLifetimeLoss >= 50000000) compare = "今すぐ辞表を叩きつけ、南の島で数年昼寝できる富。";
-            else if (totalLifetimeLoss >= 20000000) compare = "推しの全公演を「最前列」で鑑賞し続ける特権。";
-            else if (totalLifetimeLoss >= 5000000) compare = "コンビニで「一生爆買い」できたはずの富。";
-            else compare = "最新iPhoneを10回バキバキに割っても余裕でした。";
-            
-            document.getElementById('comparisonText').innerText = compare;
+            if (totalLifetimeLoss >= 100000000) compare = "「老後2000万問題」を5回クリアして、お釣りが来るレベル。";
+            else if (totalLifetimeLoss >= 50000000) compare = "都内に「新築一戸建て」を、SNSのついでにポイ捨てした。";
+            else if (totalLifetimeLoss >= 20000000) compare = "「高級外車」を4台、画面のスクロールだけで廃車にした。";
+            else if (totalLifetimeLoss >= 10000000) compare = "「吉野家の牛丼」を生涯、毎食3杯ずつ食べ続けられた富。";
+            else compare = "最新のiPhoneを、毎年バキバキに割ってもお釣りが来る。";
 
-            let color = "";
-            if (snsTime >= 10) { globalRank = "末期デジタル廃人"; color = "#ff0000"; }
+            document.getElementById('comparisonText').innerHTML = `
+                <div style="color:var(--black); margin-bottom:12px; font-size:1rem;">
+                    人生の <span style="color:red; font-size:1.5rem; text-decoration: underline;">${totalYears}年分</span> が<br>
+                    ただ画面をなでるためだけに溶けます。
+                </div>
+                ${compare}
+            `;
+            
+            // 5つのランク判定
+            let color = "#333";
+            if (snsTime >= 10) { globalRank = "末期デジタル家畜"; color = "#ff0000"; }
             else if (snsTime >= 7) { globalRank = "アルゴリズムの奴隷"; color = "#FF007F"; }
-            else if (snsTime >= 4) { globalRank = "標準的デジタル家畜"; color = "#000000"; }
-            else if (snsTime >= 2) { globalRank = "無自覚な養分"; color = "#333333"; }
-            else { globalRank = "自律した人間"; color = "#00B2EE"; }
-            
-            const rankElement = document.getElementById('result-rank');
-            rankElement.innerText = globalRank;
-            rankElement.style.color = color;
+            else if (snsTime >= 4) { globalRank = "無自覚な養分"; color = "#FF4500"; }
+            else if (snsTime >= 2) { globalRank = "平均的な情報中毒"; color = "#333"; }
+            else { globalRank = "希少な一般市民"; color = "#228B22"; }
 
-            document.getElementById('roast-text').innerHTML = roasts[Math.floor(Math.random() * roasts.length)];
+            document.getElementById('result-rank').innerText = globalRank;
+            document.getElementById('result-rank').style.color = color;
+            document.getElementById('roast-text').innerText = roasts[Math.floor(Math.random() * roasts.length)];
             
             startTime = Date.now();
             updateTicker();
@@ -208,13 +165,10 @@
     }
 
     function shareX() {
-        const rankText = `【判定：${globalRank}】`;
-        const lossText = document.getElementById('totalLossDisplay').innerText;
-        const compareText = document.getElementById('comparisonText').innerText;
-        const text = encodeURIComponent(`${rankText}\n私がSNSの闇に溶かした総額は「${lossText}」でした…。\n${compareText}\n\n#SNS依存診断 #デジタル家畜`);
-        const url = encodeURIComponent(window.location.href);
-        const xUrl = `https://x.com/intent/post?text=${text}&url=${url}`;
-        window.open(xUrl, '_blank', 'noopener,noreferrer');
+        const totalMoney = document.getElementById('totalLossDisplay').innerText;
+        const totalYears = ((document.getElementById('snsTime').value * 365 * 40) / 24 / 365).toFixed(1);
+        const text = encodeURIComponent(`【判定：${globalRank}】\n人生の ${totalYears} 年分をドブに捨て、${totalMoney} をSNSに献上するようです…。\n\n#SNS依存診断 #デジタル家畜`);
+        window.open(`https://x.com/intent/post?text=${text}`, '_blank');
     }
 </script>
 </body>
